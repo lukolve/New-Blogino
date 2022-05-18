@@ -1,0 +1,55 @@
+<?php
+/*
+ * Update synapse on the fly - get files from server site
+ *
+ */
+function update($master, $current_dir) {
+$urls=array(
+$master.'/cool-php-captcha.zip',
+$master.'/robots.txt',
+$master.'/blogino.sql',
+$master.'/bootstrap.min.css',
+$master.'/index.php',
+$master.'/online.php',
+$master.'/rss.php',
+$master.'/init.php',
+$master.'/locales.php',
+$master.'/php-mo.php',
+$master.'/control.php',
+$master.'/formular.php',
+$master.'/Crypt.php',
+$master.'/Crypt.LICENSE',
+$master.'/zones_cl.php',
+$master.'/error.php',
+$master.'/error.png',
+$master.'/reset.css',
+$master.'/License');
+ 
+$save_to=$current_dir;
+ 
+$mh = curl_multi_init();
+foreach ($urls as $i => $url) {
+    $g=$save_to.basename($url);
+    if(!is_file($g)){
+        $conn[$i]=curl_init($url);
+        $fp[$i]=fopen ($g, "w");
+        curl_setopt ($conn[$i], CURLOPT_FILE, $fp[$i]);
+        curl_setopt ($conn[$i], CURLOPT_HEADER ,0);
+        curl_setopt($conn[$i],CURLOPT_CONNECTTIMEOUT,60);
+        curl_multi_add_handle ($mh,$conn[$i]);
+    }
+}
+do {
+    $n=curl_multi_exec($mh,$active);
+}
+while ($active);
+foreach ($urls as $i => $url) {
+    curl_multi_remove_handle($mh,$conn[$i]);
+    curl_close($conn[$i]);
+    fclose ($fp[$i]);
+}
+curl_multi_close($mh);
+}
+
+update("192.168.0.111","/test1/");
+?>
