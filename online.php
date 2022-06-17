@@ -14,175 +14,7 @@ if ($_POST['submit_btn']=="Logout") {
 <title>W3.CSS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-.w3-row-padding img {margin-bottom: 12px}
-.bgimg {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url('/w3images/profile_girl.jpg');
-  min-height: 100%;
-}
-
-.tweet {
-	CLEAR: left; FONT-SIZE: 12px;  PADDING: 0.0em; MARGIN: 0.0em;
-	WIDTH: inherit;
-	font-family: verdana, tahoma, arial, helvetica, sans-serif;
-	font:200 16px/16px sans-serif;
-	
-	border-left: 1px dotted #dddddd;
-	border-right: 1px dotted #dddddd;
-}
-.tweet LI {
-	PADDING-BOTTOM: 20px; PADDING-TOP: 20px;  
-	PADDING-LEFT: 5px; PADDING-RIGHT: 5px;
-	
-	DISPLAY: block;
-	
-	TEXT-ALIGN: left; TEXT-DECORATION: none;
-	/*LIST-STYLE-TYPE: none;*/
-	
-	border-bottom: 1px dotted #dddddd;
-	
-	COLOR: black; 
-
-}
-/*
-.tweet LI A {
-	
-	DISPLAY: block; */
-	/* FONT-SIZE: 11px;*/  
-/*	COLOR: black; 
-	TEXT-ALIGN: left; TEXT-DECORATION: none;
-}
-*/
-.tweet LI:hover {
-	TEXT-ALIGN: left; TEXT-DECORATION: none;
-	
-	DISPLAY: block;
-	
-	color: black;
-	box-shadow: 0px 0px 0px 3px rgb(204, 204, 204);
-		  background-color: rgb(0,0,0); /* Fallback color */
-  
-    background-color: rgba(255,100,1,.1); /* Black w/ opacity */
-	background-size: 100% 100%;
-	
-	/* background-color: #eef; */
-	/* border-bottom: 1px dotted black; */
-	/* FONT-SIZE: 11px;*/
-	/*PADDING-LEFT: 7px; */
-}
-
-
-.tweet-avatar {
-    position: relative;
-    top: 20px;
-    left: 20px;
-    border-radius: 50% 50% 50% 50%;
-        border-top-left-radius: 50%;
-        border-top-right-radius: 50%;
-        border-bottom-right-radius: 50%;
-        border-bottom-left-radius: 50%;
-    box-shadow: 0px 0px 0px 3px rgb(204, 204, 204);
-}
-.tweet-reply-link {
-    position: relative;
-    top: 60px;
-    left: 10px;
-    font-size: 13px;
-    width: 50px;
-    text-align: center;
-    color: rgb(204, 204, 204);
-}
-.tweet-author {
-	position: relative;
-    font-weight: bold;
-    font-size: 16px;
-    right: 100px;
-}
-.tweet-date-link {
-    position: relative;
-    top: 5px;
-    right: 10px;
-    font-size: 11px;
-    line-height: 13px;
-    text-align: right;
-}
-.tweet-text {
-	position: relative;
-    font-weight: normal;
-    font-size: 16px;
-    top: 20px;
-    left: 100px;
-}
-
-.message-field {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 2px solid grey;
-  background-color: transparent;
-  color: grey;
-  font-size: 28px;
-}
-
-.message-field:hover {
-  border-bottom: 2px solid red;
-  color: red;
-}
-
-.fbutton, .message-submit {
-  border: 2px solid red;
-  background-color: transparent;
-  color: red;
-  height: 40px;
-}
-
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-</style>
-
+<link rel="stylesheet" href="index.css">
 <?php 
 	// $obj->display_AdminPanel(); 
 ?>
@@ -208,13 +40,14 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   </div>
   </div>
 
-<!-- Sidebar -->
+<!-- Sidebar 
 <div class="w3-sidebar w3-bar-block" style="display:none;z-index:5; width: 230px;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-xxlarge" onclick="w3_close()">&#9776;</button>
   <a href="./index.php?page=pictures" class="w3-bar-item w3-button w3-padding-16 w3-underline-color" title="Photos">Upload Photo</a>
   <a href="./index.php?page=friends" class="w3-bar-item w3-button w3-padding-16 w3-underline-color" title="Friends">Friends</a>
   <a href="./index.php?page=logout" class="w3-bar-item w3-button w3-padding-16 w3-underline-color" title="Logout">Logout</a>
 </div>
+-->
 
 <ul class="pagination">
 		<?php 
@@ -230,6 +63,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 			$icount++;
 			} 
 		?>
+<li><a href="index.php?page=images" class="w3-padding-16" style="background-color:lightgrey;" title="View Photos">PHOTOS</a></li>
 <li id="myBtnCookie"><a class="w3-padding-16" style="background-color:lightblue;" title="Sign In">WRITE NEW ARTICLE</a></li>
 </ul>
 
@@ -237,15 +71,14 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 <div class="w3-overlay" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
 
 <div>
-  <button class="w3-button w3-white w3-xxlarge" onclick="w3_open()">&#9776;</button>
   <div class="w3-container">
 <?php
 	require($_SERVER['DOCUMENT_ROOT'].'/control.php');
 ?>
-  <p>
-  <?php
-echo "<p>Copyright &copy; 2013-" . date("Y") . " Lukas Veselovsky</p>";
-?></p>
+<div class="banner">
+<a href="index.php?page=logout" class="w3-bar-item w3-button w3-padding-16" style="color: black;">LOGOUT</a>
+<a href=""></a>
+</div>
   </div>
 </div>
      

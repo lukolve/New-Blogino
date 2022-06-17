@@ -124,6 +124,67 @@ function ismedia($file) {
 	}
 }
 
+/// DB UPLOAD MECHANISM
+// If file upload image is submitted 
+function UploadPictures()
+{
+$error = '';
+$msg = ''; 
+$status = ''; 
+if(isset($_POST["submit"])){ 
+    $error = 'error'; 
+    if(!empty($_FILES["image"]["name"])) { 
+        // Get file information 
+        $fileName = basename($_FILES["image"]["name"]); 
+        $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+         
+        // Allow below file formats 
+        $allowTypes = array('jpg','png','jpeg','gif'); 
+        if(in_array($fileType, $allowTypes)){ 
+            $image = $_FILES['image']['tmp_name']; 
+            $imgfile = addslashes(file_get_contents($image)); 
+      
+			$uploadedtime = date("Y-m-d H:i:s");
+            // Insert image into database 
+            $insert = $this->warp_query("INSERT into save_images (image, uploaded) VALUES ('$imgfile', '$uploadedtime')"); 
+             
+            if($insert){ 
+                $status = 'success'; 
+                $msg = "File uploaded successfully."; 
+            }else{ 
+                $msg = "File upload failed, please try again."; 
+            }  
+        }else{ 
+            $msg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
+        } 
+    }else{ 
+        $msg = 'Please select an image to upload.'; 
+    } 
+} 
+
+// Display All message 
+echo $msg; 
+
+//If file uploaded successfully
+if( !empty($status) ) {
+  header( 'Location: index.php?page=viewimages' );
+}
+}
+
+function ViewPictures() {
+   // Display image from database 
+  $result = $this->warp_query("SELECT image FROM save_images"); 
+  if($result->num_rows > 0){ ?> 
+    <div class="portfolio"> 
+        <?php while($row = $result->fetch_assoc()){ ?> 
+            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>" /> 
+        <?php } ?> 
+    </div> 
+<?php }else{ ?> 
+    <p class="msg">Images not found....</p> 
+<?php }
+}
+/// END OF UPLOAD MECHANISM
 
 function list_image_files_box($user)
 {
@@ -2446,8 +2507,22 @@ public function LatestAccess() {
 MESSAGE_DISPLAY;
 }
 
+//<div class="w3-container w3-card w3-white w3-round w3-margin" id="comment-{$id}"><br>
+//        <img src="{$avat}" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+//        <span class="w3-right w3-opacity">{$result}</span>
+//        <h4>{$user}</h4><br>
+//        <hr class="w3-clear">
+//        <p>{$bodytext}</p>
+//        <div class="w3-row-padding" style="margin:0 -16px">
+//        </div>
+//		<hr class="w3-clear">
+//        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  {$karm} Like</button> 
+//        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+//        </div>
 public function LoadMessages($chan) {
 	$this->switch_users_table();
+	
+	$message_display="<ul class=\"list-group\">";
 	
 	//$test=0;$ts1=0;$ts2=0;
 	if ( (isset($_GET['timeline1']))&&(isset($_GET['timeline2'])) ) {
@@ -2495,8 +2570,11 @@ public function LoadMessages($chan) {
 			$bodytext = $this->get_bodytext($bodytext, $crea, $user);
 		
 			$bodytext = strip_tags($bodytext); 
+			//$bodytext = preg_replace("#\[iframe\](.*?)\[/iframe\]#si", "", $bd);
+			
 			$bodytext = $this->spracuj_form($bodytext);
-		
+			
+						
 			//$replies = $this->howmany_reply_messages($crea);
 		
 			//if ($replies>0) $reptxt = "<br><a href=\"index.php?comments=$crea\">comments</a><br>"; else $reptxt = "";
@@ -2509,18 +2587,7 @@ public function LoadMessages($chan) {
 						//if ($_SESSION['loginuser']) $replybtn = "<input type=\"submit\" name=\"karma_yesno\" value=\"Reply\">";
 						$karm=$this->karma_health_likes($crea);
 						$message_display .= <<<MESSAGE_DISPLAY
-		<div class="w3-container w3-card w3-white w3-round w3-margin" id="comment-{$id}"><br>
-        <img src="{$avat}" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">{$result}</span>
-        <h4>{$user}</h4><br>
-        <hr class="w3-clear">
-        <p>{$bodytext}</p>
-        <div class="w3-row-padding" style="margin:0 -16px">
-        </div>
-		<hr class="w3-clear">
-        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  {$karm} Like</button> 
-        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-        </div>
+		<li class="list-group-item" id="comment-{$id}">{$bodytext}<br><br><span class="badge">{$user} {$date}</span><br></li>
 MESSAGE_DISPLAY;
 				//$ix++;
 				}
@@ -2528,6 +2595,7 @@ MESSAGE_DISPLAY;
 		}
 	
 	echo $message_display .= <<<MESSAGE_DISPLAY
+		</ul>
 MESSAGE_DISPLAY;
 }
 

@@ -1,310 +1,46 @@
+<link rel="stylesheet" href="index.css">
 <style>
-.message-field {
-  width: 300px;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 2px solid grey;
-  background-color: transparent;
-  color: grey;
-  font-size: 18px;
-}
-
-.message-field:hover {
-  border-bottom: 2px solid red;
-  color: red;
-}
-
-.message-submit {
-  border: 2px solid grey;
-  background-color: transparent;
-  color: grey;
-  height: 40px;
-}
-
-.message-submit:hover {
-  border: 2px solid red;
-  background-color: transparent;
-  color: red;
-  height: 40px;
-}
-
-
-.captcha-field[type=text] {
-  width: 300px;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border: 1px solid #555;
-  outline: none;
-}
-
-.captcha-field:focus {
-  background-color: lightblue;
-}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  text-align:center;
 }
 
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
+.sidenav a {
+  padding: 8px 8px 8px 32px;
   text-decoration: none;
-  cursor: pointer;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+
 }
 
-pre,
-code {
-    font-family: 'Roboto Mono', monospace;
-}
-pre {
-    padding: 1em;
-    background-color: var(--code-bg);
-    border: 1pt solid #93a1a1;
-    box-shadow: 2pt 2pt 4pt #93a1a1;
-    white-space: pre;
-    word-break: break-all;
-    word-wrap: break-word;
-    overflow-x: auto;
-}
-code {
-    background-color: var(--code-bg);
-    font-size: 90%;
-    padding: 2px 4px;
-    border-radius: 0.3em;
-}
-pre code {
-    padding: 0px;
-}
-a {
-    text-decoration: none;
-    color: var(--anchor-color);
-}
-a:hover {
-    text-decoration: underline;
-    color: var(--anchor-hover-color);
-}
-a:focus {
-    outline: thin dotted;
-}
-b,
-strong {
-    font-weight: bold;
-}
-blockquote {
-    font-style: italic;
-    color: var(--blockquote-color);
-}
-blockquote p {
-    display: inline;
-}
-q, blockquote {
-    quotes: "\201C" "\201D" "\2018" "\2019";
-}
-q:before, blockquote:before {
-    content: open-quote;
-}
-q:after, blockquote:after {
-    content: close-quote;
-}
-small {
-    font-size: 80%;
-}
-ul ul,
-ol ol {
-    padding-left: 1em;
-}
-svg:not(:root) {
-    overflow: hidden;
-}
-svg {
-    stroke: #67767e;
-    height: 1em;
-    width: 1em;
-    fill: none;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-}
-th {
-    color: var(--header-color);
-}
-nav {
-    display: inline-flex;
-    font-size: 1.2rem;
-}
-nav a:first-child {
-    margin-left: 0;
-}
-nav a:last-child  {
-    margin-right: 0;
-}
-nav a {
-    margin-left: 0.3em;
-    margin-right: 0.3em;
-    text-transform: uppercase;
-}
-footer {
-    margin-top: 7%;
-    text-align: center;
-}
-footer a {
-    font-size: .9em;
-}
-footer nav {
-    display: flex;
-    justify-content: center;
-    margin-bottom: .8em;
-}
-kbd {
-    display: inline-block;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: .75em;
-    color: #333;
-    background-color: #f7f7f7;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.2), 0 0 0 2px #fff inset;
-    padding: .3em .6em .1em .6em;
-}
-iframe {
-    max-width: 100%;
-}
-.banner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 1.5em;
-}
-.banner nav {
-    font-weight: bold;
-}
-.banner h1 {
-    text-align: center;
-    margin-top: .1em;
-}
-.banner img {
-    max-width: 180px;
-    padding-right: 1.5em;
-}
-.align {
-    display: inline-block;
-    vertical-align: middle;
-}
-.posts,
-.projects,
-.contributions {
-    list-style: none;
-    padding-left: .5em;
-}
-.posts li,
-.projects li,
-.contributions li {
-    display: flex;
-    align-items: baseline;
-	margin-top: 1em;
-}
-.posts .section-meta {
-    text-align: right;
-    min-width: 7em;
-}
-.groupby {
-    margin-top: 1em;
-    list-style: none;
-}
-.post-meta,
-.section-meta {
-    font-size: 75%;
-    color: var(--blockquote-color);
-}
-.section-meta {
-    margin-right: 1em;
-}
-.list {
-    display: inline;
-    list-style: none;
-    padding-left: 0;
-}
-.list li {
-    display: inline;
-}
-.list li:after {
-    content: ", ";
-}
-.list li:last-child:after {
-    content: "";
-}
-@media screen and (max-width: 690px) {
-    body {
-     //   margin: 2em 1em;
-    }
-    p {
-        text-align: justify;
-    }
-    .banner {
-      //  display: block;
-        padding-bottom: 0;
-    }
-    .banner img {
-        padding-right: 10px;
-    }
-    .banner nav {
-     //   display: block;
-        margin-top: 1em;
-    }
-    .banner nav a {
-      //  display: block;
-        margin: 0;
-		margin-left: 0.3em;
-    margin-right: 0.3em;
-        text-align: center;
-    }
-    #name {
-        display: none;
-    }
-}
-.list-group-item:hover{
-background-color: #eee;
+.sidenav a:hover{
+  color: #f1f1f1;
 }
 
-.btn-primary {
-    background-color: lightblue;
-    border-color: #0d6efd;
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
 </style>
-
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
@@ -329,6 +65,14 @@ background-color: #eee;
 
 </div>
 
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div>
+
 <ul class="pagination">
 		<?php 
 			$icount=0;
@@ -344,6 +88,7 @@ background-color: #eee;
 			} 
 		?>
 <li id="myBtnCookie"><a class="w3-padding-16" style="background-color:lightblue;" title="Sign In">WRITE NEW ARTICLE</a></li>
+<li onclick="openNav()"><a class="w3-padding-16" style="background-color:grey;">&#9776;</a></li>
 </ul>
 
 <!-- item container class=tweet -->
@@ -416,5 +161,14 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+}
+</script>
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "100%";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
 }
 </script>

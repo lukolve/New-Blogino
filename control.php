@@ -22,7 +22,7 @@ DISPLAY_MESSAGES;
 			if ($_GET['user']) { if (file_exists($obj->upload_dir."".$_GET['user']."/formular.txt")) $obj->display_formular($_GET['user']); }
 			//else settings_formular();
 	break;
-	case 'images':
+	case 'uploadfile':
 			echo $obj->list_image_files_by_user($_SESSION['loginuser']);
 			$obj->upload_myfile();
 			//$obj->UploadImages();
@@ -72,6 +72,51 @@ HTML;
 			}
 			///write_post_data
 		}
+	break;
+	case 'images':
+	?>
+	<div class="container">
+    <div class="card mt-5">
+      <div class="card-header">Image Form</div>
+      <div class="card-body">
+      <form id="form" action="index.php?page=uploadimages" method="post" role="form" enctype="multipart/form-data">      
+        <div class="row">
+          <div class="col-md-6 mb-3"> 
+            <label class="pb-2">Select Image</label></br> 
+            <input class="file" type="file" name="image" onchange="readURL(this);">  
+          </div>
+          <div class="col-md-6 mb-3">
+            <img id="blah" src="#" alt="wallpaper" style="visibility: hidden;" />
+          </div>
+        </div>
+        <input class="btn btn-primary" type="submit" name="submit" value="Upload Image">
+        <a href="index.php?page=viewimages" class="btn btn-primary" >View Images</a>
+      </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#blah').css("visibility","visible");
+          $('#blah')
+            .attr('src', e.target.result)
+            .width(100)
+            .height(100);
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
+<?php
+	break;
+	case 'uploadimages':
+		$obj->UploadPictures();
+	break;
+	case 'viewimages':
+		$obj->ViewPictures();
 	break;
 	default:
 		if (!empty($_POST['karma_yesno'])) {
